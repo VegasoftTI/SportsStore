@@ -17,7 +17,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("SportsStore", "List", "Product", new { area = "" }, new { @class = "navbar-brand" })                
+                @Html.ActionLink("SportsStore", "List", "Product", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -28,12 +28,13 @@
     </div>
     <div class="container-fluid">
         <div id="categories" class="col-md-2">
-            @Html.Action("Menu", "Nav")            
+            @Html.Action("Menu", "Nav")
         </div>
         <div class="col-md-9">
-            @RenderBody()            
+            @RenderBody()
         </div>
     </div>
+    <div class="well" style="margin:20px;">@Html.Action("CurrentDate", "Date")</div>
   
 
     <script src="~/Scripts/jquery-2.1.0.min.js"></script>
