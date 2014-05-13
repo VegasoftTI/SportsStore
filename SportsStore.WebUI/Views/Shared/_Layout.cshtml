@@ -9,8 +9,10 @@
     <script src="~/Scripts/modernizr-2.7.2.js"></script>
 </head>
 <body>
-    <div class="navbar navbar-inverse" role="navigation">
-        <div class="container">
+    <div class="navbar navbar-inverse" role="navigation" style="padding-right:15px;">
+        <b class="navbar-brand">Sports Store</b>
+        @Html.Action("Summary", "Cart")
+        @*<div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
@@ -24,7 +26,7 @@
                     <li>@Html.ActionLink("Products", "List")</li>
                 </ul>
             </div>
-        </div>
+        </div>*@
     </div>
     <div class="container-fluid">
         <div id="categories" class="col-md-2">

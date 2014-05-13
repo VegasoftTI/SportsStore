@@ -6,13 +6,14 @@
 
 <h2>Your cart</h2>
 
-<table class="table table-hover">
+<table class="table table-hover" id="cartTable">
     <thead>
         <tr>
             <th style="width:100px" class="text-center">Quantity</th>
             <th>Item</th>
             <th style="width:150px" class="text-right">Price</th>
             <th style="width:150px" class="text-right">Subtotal</th>
+            <th style="width:100px;">&nbsp;</th>
         </tr>
     </thead>
     <tbody>
@@ -27,6 +28,14 @@
                 <td class="text-right">
                     @((line.Quantity * line.Product.Price).ToString("c"))
                 </td>
+                <td>
+                    @using (Html.BeginForm("RemoveFromCart", "Cart"))
+                    {
+                        @Html.Hidden("productId", line.Product.ProductID)
+                        @Html.HiddenFor(x => x.ReturnUrl)
+                        <input type="submit" value="Remove" class="btn btn-warning" />
+                    }
+                </td>
             </tr>
         }
     </tbody>
@@ -36,10 +45,12 @@
             <td class="text-right">
                 @Model.Cart.ComputeTotalValue().ToString("c")
             </td>
+            <td>&nbsp;</td>
         </tr>
     </tfoot>
 </table>
 
 <div class="text-center">
     <a class="btn btn-primary" href="@Model.ReturnUrl">Continue shopping</a>
+    @Html.ActionLink("Checkout now", "Checkout", null, new { @class = "btn btn-primary"})
 </div>

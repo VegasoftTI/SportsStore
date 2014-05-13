@@ -16,3 +16,4 @@ textarea {
     max-width: 280px;
 }
 
+#cartTable td { vertical-align:middle; }
