@@ -7,6 +7,7 @@ using Ninject;
 using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Entities;
 using SportsStore.Domain.Concrete;
+using System.Configuration;
 
 namespace SportsStore.WebUI.Infrastructure
 {
@@ -33,15 +34,18 @@ namespace SportsStore.WebUI.Infrastructure
         private void AddBindings()
         {
             #region Mock object
-            Mock<IProductRepository> mock = new Mock<IProductRepository>();
-            mock.Setup(m => m.Products).Returns(new List<Product> { 
-                new Product { Name = "Football", Price = 25, Category = "Sport" },
-                new Product { Name = "Surf board", Price = 179, Category = "Sport" },
-                new Product { Name = "Running shoes", Price = 95, Category = "Sport" }
-            });
+            //Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            //mock.Setup(m => m.Products).Returns(new List<Product> { 
+            //    new Product { Name = "Football", Price = 25, Category = "Sport" },
+            //    new Product { Name = "Surf board", Price = 179, Category = "Sport" },
+            //    new Product { Name = "Running shoes", Price = 95, Category = "Sport" }
+            //});
             //kernel.Bind<IProductRepository>().ToConstant(mock.Object);
             #endregion
 
+            EmailSettings emailSettings = new EmailSettings();
+            emailSettings.WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false");            
+            kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>().WithConstructorArgument("settings", emailSettings);
             kernel.Bind<IProductRepository>().To<EFProductRepository>();
         }
     }
