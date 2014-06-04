@@ -20,6 +20,7 @@ namespace SportsStore.WebUI.Controllers
             return View(_repository.Products);
         }
 
+        [HttpGet]
         public ViewResult Edit(int productId)
         {
             var product = _repository.Products.FirstOrDefault(p => p.ProductID == productId);
@@ -40,6 +41,22 @@ namespace SportsStore.WebUI.Controllers
                 // there is something wrong with the data values
                 return View(product);
             }
+        }
+
+        public ViewResult Create()
+        {
+            return View("Edit", new Product());
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int productId)
+        {
+            Product deletedProduct = _repository.DeleteProduct(productId);
+            if(deletedProduct != null)
+            {
+                TempData["message"] = string.Format("{0} was deleted", deletedProduct.Name);
+            }
+            return RedirectToAction("Index");
         }
 
     }
